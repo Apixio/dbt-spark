@@ -20,6 +20,7 @@ from dbt.adapters.spark import SparkColumn
 from dbt.adapters.spark.python_submissions import (
     JobClusterPythonJobHelper,
     AllPurposeClusterPythonJobHelper,
+    ApacheSparkPythonJobHelper
 )
 from dbt.adapters.base import BaseRelation
 from dbt.clients.agate_helper import DEFAULT_TYPE_TESTER
@@ -390,6 +391,7 @@ class SparkAdapter(SQLAdapter):
         return {
             "job_cluster": JobClusterPythonJobHelper,
             "all_purpose_cluster": AllPurposeClusterPythonJobHelper,
+            "apache_spark_cluster": ApacheSparkPythonJobHelper
         }
 
     def standardize_grants_dict(self, grants_table: agate.Table) -> dict:

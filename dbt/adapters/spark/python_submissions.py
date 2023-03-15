@@ -3,7 +3,7 @@ import time
 import requests
 from typing import Any, Dict
 import uuid
-
+from pyspark.sql import SparkSession
 import dbt.exceptions
 from dbt.adapters.base import PythonJobHelper
 from dbt.adapters.spark import SparkCredentials
@@ -14,6 +14,22 @@ SUBMISSION_LANGUAGE = "python"
 DEFAULT_TIMEOUT = 60 * 60 * 24
 DBT_SPARK_VERSION = __version__.version
 
+class ApacheSparkPythonJobHelper(PythonJobHelper):
+    def __init__(self, parsed_model: Dict, credentials: SparkCredentials) -> None:
+        self.credentials = credentials
+        self.identifier = parsed_model["alias"]
+        self.schema = parsed_model["schema"]
+        self.parsed_model = parsed_model
+
+    def submit(self, compiled_code: str) -> None:
+        builder = SparkSession.builder.enableHiveSupport()
+
+        for k, v in self.credentials.server_side_parameters.items():
+            builder = builder.config(k, v)
+
+        # Run the generated code with "spark" in context
+        spark = builder.getOrCreate()  # noqa
+        exec(compiled_code, { "spark": spark })
 
 class BaseDatabricksHelper(PythonJobHelper):
     def __init__(self, parsed_model: Dict, credentials: SparkCredentials) -> None:
