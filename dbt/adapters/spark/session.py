@@ -84,10 +84,6 @@ class Cursor:
         self._df = None
         self._rows = None
 
-        # Connect to the session and stop it -- should this be configurable?
-        spark_session = SparkSession.builder.enableHiveSupport().getOrCreate()
-        self._df = spark_session.stop()
-
     def execute(self, sql: str, server_side_parameters, *parameters: Any) -> None:
         """
         Execute a sql statement.
@@ -196,6 +192,9 @@ class SessionConnectionWrapper(object):
         logger.debug("NotImplemented: cancel")
 
     def close(self):
+        # Connect to the session and stop it -- should this be configurable?
+        # spark_session = SparkSession.builder.enableHiveSupport().getOrCreate()
+        # spark_session.stop()
         if self._cursor:
             self._cursor.close()
 
