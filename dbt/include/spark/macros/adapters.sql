@@ -28,7 +28,7 @@
 {% macro spark__location_clause() %}
   {%- set location_path = adapter.dispatch('location_path', 'dbt')() -%}
   {%- if location_path is not none %}
-    location '{{ location_path }}'
+    location {{ location_path }}
   {%- endif %}
 {%- endmacro -%}
 
@@ -39,7 +39,7 @@
 {% macro spark__location_path() %}
   {%- set location_root = config.get('location_root', validator=validation.any[basestring]) -%}
   {%- set identifier = model['alias'] -%}
-  {%- if location_root is not none %}
+  {%- if location_root is not none -%}
     '{{ location_root }}/{{ identifier }}'
   {%- endif %}
 {%- endmacro -%}
