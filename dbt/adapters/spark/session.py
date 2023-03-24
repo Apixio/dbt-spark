@@ -84,6 +84,10 @@ class Cursor:
         self._df = None
         self._rows = None
 
+        # Connect to the session and stop it -- should this be configurable?
+        spark_session = SparkSession.builder.enableHiveSupport().getOrCreate()
+        self._df = spark_session.stop()
+
     def execute(self, sql: str, server_side_parameters, *parameters: Any) -> None:
         """
         Execute a sql statement.
