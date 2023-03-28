@@ -193,8 +193,8 @@ class SessionConnectionWrapper(object):
 
     def close(self):
         # Connect to the session and stop it -- should this be configurable?
-        # spark_session = SparkSession.builder.enableHiveSupport().getOrCreate()
-        # spark_session.stop()
+        spark_session = SparkSession.builder.enableHiveSupport().getOrCreate()
+        spark_session.stop()
         if self._cursor:
             self._cursor.close()
 
