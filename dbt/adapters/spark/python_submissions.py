@@ -30,6 +30,7 @@ class ApacheSparkPythonJobHelper(PythonJobHelper):
         # Run the generated code with "spark" in context
         spark = builder.getOrCreate()  # noqa
         exec(compiled_code, { "spark": spark })
+        spark.stop()
 
 class BaseDatabricksHelper(PythonJobHelper):
     def __init__(self, parsed_model: Dict, credentials: SparkCredentials) -> None:
