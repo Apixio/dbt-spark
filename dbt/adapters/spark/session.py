@@ -192,7 +192,8 @@ class SessionConnectionWrapper(object):
         logger.debug("NotImplemented: cancel")
 
     def close(self):
-        self.spark_session.stop()
+        # TODO: This seems to be called from different contexts and crashes job.
+        # self.spark_session.stop()
         if self._cursor:
             self._cursor.close()
 
