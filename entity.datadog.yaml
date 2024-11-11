@@ -1,0 +1,190 @@
+apiVersion: v3
+kind: system
+spec:
+  lifecycle: [ in_development, production, deprecated ]
+  tier: "1"
+  type: [ web, browser, 
+  languages:
+    - go
+    - python
+  components:
+    - service:myservice
+    - library:mylibrary
+    - datastore:mydatastore
+    - queue:myqueue
+
+metadata:
+  name: system_name
+  displayName: User friendly name of the entity. The UI can leverage the displayName for display
+  description: Short description of the entity. The UI can leverage the description for display
+  inheritFrom: system:otherSystem (you can inherit from service, datastore, queue, system)
+  tags:
+    - tag:value
+  links:
+    - name: system_name runbook
+      type: runbook
+      url: https://runbook/system_name
+    - name: system architecture
+      provider: gdoc
+      url: https://google.drive/system_name-architecture
+      type: doc
+    - name: system_name Wiki
+      provider: wiki
+      url: https://wiki/system_name
+      type: doc
+    - name: system_name source code
+      provider: github
+      url: http://github/system_name
+      type: repo
+  contacts:
+    - name: Support Email
+      type: email
+      contact: team@shopping.com
+    - name: Support Slack
+      type: slack
+      contact: https://www.slack.com/archives/system_name
+  owner: myteam
+  additionalOwners:
+    - name: opsTeam
+      type: operator
+integrations:
+  pagerduty:
+    serviceURL: https://apixio.pagerduty.com/service-directory/system_name
+---
+apiVersion: v3
+kind: datastore
+spec:
+  lifecycle: production
+  tier: "1"
+  type: ["redis", "postgres", "cassandra"]
+metadata:
+  name: mydatastore
+  displayName: My Datastore
+  links:
+    - name: mydatastore runbook
+      type: runbook
+      url: https://runbook/mydatastore
+    - name: mydatastore source code
+      provider: github
+      url: http://github/mydatastore
+      type: repo
+    - name: mydatastore Wiki
+      provider: wiki
+      url: https://wiki/mydatastore
+      type: doc
+    - name: mydatastore architecture
+      provider: gdoc
+      url: https://google.drive/mydatastore-architecture
+      type: doc
+  owner: myteam
+  additionalOwners:
+    - name: opsTeam
+      type: operator
+---
+apiVersion: v3
+kind: queue
+spec:
+  lifecycle: production
+  tier: "1"
+  type: ["kafka", "rabbitmq"]
+metadata:
+  name: order-queue
+  tags:
+    - tag:value
+  links:
+    - name: order-queue runbook
+      type: runbook
+      url: https://runbook/order-queue
+    - name: order-queue source code
+      provider: github
+      url: http://github/order-queue
+      type: repo
+    - name: order-queue Wiki
+      provider: wiki
+      url: https://wiki/order-queue
+      type: doc
+    - name: order-queue architecture
+      provider: gdoc
+      url: https://google.drive/order-queue-architecture
+      type: doc
+  owner: myteam
+  additionalOwners:
+    - name: opsTeam
+      type: operator
+---
+apiVersion: v3
+kind: service
+spec:
+  lifecycle: production
+  tier: "1"
+  type: ["web", "grpc", "http", "rest", "graphql"]
+  languages: [["dotnet", "go", "java", "js", "php", "python", "ruby", "c++"]]
+    - go
+    - java
+metadata:
+  name: my-service
+  displayName: My Service
+  tags:
+    - tag:value
+  links:
+    - name: my-service runbook
+      type: runbook
+      url: https://runbook/my-service
+    - name: my-service source code
+      provider: github
+      url: http://github/my-service
+      type: repo
+    - name: my-service Wiki
+      provider: wiki
+      url: https://wiki/my-service
+      type: doc
+    - name: my-service architecture
+      provider: gdoc
+      url: https://google.drive/my-service-architecture
+      type: doc
+  contacts:
+    - name: Support Email
+      type: email
+      contact: team@shopping.com
+    - name: Support Slack
+      type: slack
+      contact: https://www.slack.com/archives/my-service_name
+  owner: myteam
+  additionalOwners:
+    - name: opsTeam
+      type: operator
+---
+apiVersion: v3
+kind: library
+spec:
+  lifecycle: production
+  tier: "1"
+  type: ["library"]
+  languages: [["dotnet", "go", "java", "js", "php", "python", "ruby", "c++"]]
+    - go
+    - java
+metadata:
+  name: my-library
+  displayName: My Library
+  tags:
+    - tag:value
+  links:
+    - name: my-library runbook
+      type: runbook
+      url: https://runbook/my-library
+    - name: my-library source code
+      provider: github
+      url: http://github/my-library
+      type: repo
+    - name: my-library Wiki
+      provider: wiki
+      url: https://wiki/my-library
+      type: doc
+    - name: my-library architecture
+      provider: gdoc
+      url: https://google.drive/my-library-architecture
+      type: doc
+  owner: myteam
+  additionalOwners:
+    - name: opsTeam
+      type: operator
